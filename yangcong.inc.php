@@ -47,7 +47,7 @@ if (empty($_POST['handlekey'])) {
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
             <?php if (is_array($loginCode)) {?>
                 <div class="rfm">
-                    <img width="75%" id="yangcongqrcode"  src="<?php echo $loginCode['url'];?>">
+                    <img width="260px" id="yangcongqrcode"  src="<?php echo $loginCode['url'];?>">
                 </div>
             <?php } else {?>
             <div class="alert">

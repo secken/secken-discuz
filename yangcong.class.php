@@ -62,7 +62,7 @@ class plugin_yangcong_base {
 	 * 洋葱网授权页
 	 * @var string
 	 */
-	public $_AuthPage = 'https://api.yangcong.com/v1/AuthPage';
+	public $_AuthPage = 'https://auth.yangcong.com/v1/AuthPage';
 
 	/**
 	 * 错误码
