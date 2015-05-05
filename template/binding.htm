@@ -1,0 +1,30 @@
+<div class="mn">
+<div class="bm bw0">
+<h1 class="mt">洋葱授权绑定</h1>
+<!--don't close the div here--><div class="mtw bm2 cl">
+<!--{if empty($_G['yangcong']['yangcong'])}-->
+<div class="bm2_b bw0 hm" style="padding-top: 70px;">
+<a href="javascript:;" onclick="showWindow('yangcongbinding', 'plugin.php?id=yangcong:bind')"><img src="./source/plugin/yangcong/template/image/binding.jpg"></a>
+<p class="mtn xg1">点击按钮，立刻绑定洋葱授权</p>
+</div>
+<!--{else}-->
+<div class="bm2_b bw0 hm" style="padding-top: 70px;">
+<a href="javascript:;" onclick="showWindow('yangcongbinding', 'plugin.php?id=yangcong:cancel')"><img src="./source/plugin/yangcong/template/image/cancel_binding.jpg"></a>
+<p class="mtn xg1">点击按钮，解除洋葱绑定</p>
+</div>
+<!--{/if}-->
+<div class="bm2_b bm2_b_y bw0">
+<dl class="xld">
+    <!--{if empty($_G['yangcong']['yangcong'])}-->
+   <h2>还还没有绑定</h2>
+<!--{else}-->
+<h2>你已经绑定了，点击可以重新绑定或点击这里<a href="javascript:;" onclick="showWindow('yangcongcancel', 'plugin.php?id=yangcong:cancel')">取消绑定</a></h2>
+<!--{/if}-->
+<h2 class="xi1 xs2">使用洋洋葱授权定本站，您可以...</h2>
+<dt>用洋葱授权轻松登录</dt>
+<dd class="xg1">无需记住本站的帐号和密码，随时使用洋葱授权轻松登录</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
