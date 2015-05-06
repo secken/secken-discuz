@@ -1,18 +1,18 @@
 .qq_bind { margin-top: -3px; }
 #toptb .qq_bind { margin-top: 2px; }
-#yangcong-login-content{
+.yangcong-content{
     width: 330px;
     border-bottom: 0;
 }
 .yangcong-message-box{
-    margin-top: -10px;
+    margin: -10px 0 10px;
     color: black;
     font-size: 14px;
     font-weight: bold;
 }
 .yangcong-offline-button{
     display: inline-block;
-    margin: 20px 0 10px;
+    margin: 10px 0 10px;
     color: #a3a3a3;
     font-size: 12px;
 }

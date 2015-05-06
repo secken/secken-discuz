@@ -53,7 +53,7 @@ if (empty($_POST['handlekey'])) {
             <input type="hidden" name="uuid" value="<?php echo $loginCode['uuid']?>" />
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
             <?php if (is_array($loginCode)) {?>
-                <div class="rfm">
+                <div class="rfm yangcong-content">
                     <img width="75%" id="yangcongqrcode"  src="<?php echo $loginCode['url'];?>">
                 </div>
             <?php } else {?>
@@ -61,13 +61,13 @@ if (empty($_POST['handlekey'])) {
                 <strong>获取绑定二维码错误</strong>
             </div>
             <?php }?>
-            <div id="return_yangcong_message<?php echo $loginhash?>">
+            <div class="yangcong-message-box" id="return_yangcong_message<?php echo $loginhash?>">
                 <?php echo $yangcong->get_message();?>
             </div>
         </div>
     </form>
-    <hr class="l">
-    <a href="plugin.php?id=yangcong&auth_page=true">洋葱离线授权</a>
+    <!--<hr class="l">
+    <a href="plugin.php?id=yangcong&auth_page=true">洋葱离线授权</a>-->
 </div>
 <script src="./source/plugin/yangcong/template/js/yangcong.js" type="text/javascript"></script>
 <script type="text/javascript">
