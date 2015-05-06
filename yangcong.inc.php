@@ -54,13 +54,12 @@ if (empty($_POST['handlekey'])) {
                 <strong>获取登陆二维码错误</strong>
             </div>
             <?php }?>
-            <div id="return_yangcong_message<?php echo $loginhash?>">
+            <div id="return_yangcong_message<?php echo $loginhash?>" class="yangcong-message-box">
                 <?php echo $yangcong->get_message();?>
             </div>
         </div>
     </form>
-    <hr class="l">
-    <a href="plugin.php?id=yangcong&auth_page=true">洋葱离线授权</a>
+    <a class="yangcong-offline-button" href="plugin.php?id=yangcong&auth_page=true">洋葱离线授权</a>
 </div>
 <script src="./source/plugin/yangcong/template/js/yangcong.js" type="text/javascript"></script>
 <script type="text/javascript">
