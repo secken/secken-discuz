@@ -5,12 +5,13 @@
     border-bottom: 0;
 }
 .yangcong-message-box{
-    margin-top: -5px;
+    margin-top: -10px;
     color: black;
     font-size: 14px;
     font-weight: bold;
 }
 .yangcong-offline-button{
+    display: inline-block;
     margin: 10px 0 10px;
     color: #a3a3a3;
     font-size: 12px;
