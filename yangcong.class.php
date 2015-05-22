@@ -5,7 +5,7 @@ if (!defined('IN_DISCUZ')) {
 }
 
 /**
- * 洋葱网授权类 v1.0
+ * 洋葱网授权类 v2.0
  * @author me@sanliang.org
  */
 class plugin_yangcong_base {
@@ -32,59 +32,60 @@ class plugin_yangcong_base {
 	 * 获取绑定二维码
 	 * @var string
 	 */
-	public $_GetBindingCode = 'https://api.yangcong.com/v1/GetBindingCode';
+	public $_GetBindingCode = 'https://api.yangcong.com/v2/qrcode_for_binding'; //GET
 
 	/**
 	 * 获取登录二维码
 	 * @var string
 	 */
-	public $_GetLoginCode = 'https://api.yangcong.com/v1/GetLoginCode';
+	public $_GetLoginCode = 'https://api.yangcong.com/v2/qrcode_for_auth';//GET
 
 	/**
 	 * 查询UUID事件结果
 	 * @var string
 	 */
-	public $_GetResult = 'https://api.yangcong.com/v1/GetResult';
+	public $_GetResult = 'https://api.yangcong.com/v2/event_result'; //GET
 
 	/**
 	 * 一键认证
 	 * @var string
 	 */
-	public $_VerifyOneClick = 'https://api.yangcong.com/v1/VerifyOneClick';
+	public $_VerifyOneClick = 'https://api.yangcong.com/v2/realtime_authorization';
 
 	/**
 	 * 动态码验证
 	 * @var string
 	 */
-	public $_VerifyOTP = 'https://api.yangcong.com/v1/VerifyOTP';
+	public $_VerifyOTP = 'https://api.yangcong.com/v2/offline_authorization';
 
 	/**
 	 * 洋葱网授权页
 	 * @var string
 	 */
-	public $_AuthPage = 'https://auth.yangcong.com/v1/AuthPage';
+	public $_AuthPage = 'https://auth.yangcong.com/v2/auth_page'; //GET
 
 	/**
 	 * 错误码
 	 * @var array
 	 */
 	public $_error_code = array(
-		0 => '请求成功',
-		6 => '系统错误',
-		7 => '用户不存在',
-		8 => 'app不存在',
-		15 => '签名错误',
-		17 => 'appkey匹配失败',
-		19 => 'appid或appkey错误',
-		300008 => '参数格式错误',
-		300018 => '获取二维码图片失败',
-		300039 => '调用接口过于频繁',
-		300022 => '错误请求过于频繁',
-		300056 => '请扫描二维码',
-		300058 => '用户未操作，已超时',
-		300040 => '推送消息失败',
-		300055 => '用户拒绝授权验证',
-		300008 => '参数格式错误',
+		200 => '请求成功',
+		400=>'请求参数格式错误',
+		401=>'动态码过期',
+		402=>'app_id错误',
+		403=>'请求签名错误',
+		404=>'请你API不存在',
+		405=>'请求方法错误',
+		406=>'不在应用白名单里',
+		407=>'30s离线验证太多次，请重新打开离线验证页面',
+		500=>'洋葱系统服务错误',
+		501=>'生成二维码图片失败',
+		600=>'动态验证码错误',
+		601=>'用户拒绝授权',
+		602=>'等待用户响应超时，可重试',
+		603=>'等待用户响应超时，不可重试',
+		604=>'用户不存在'
+
 	);
 	private $_message, $_code;
 
@@ -114,8 +115,12 @@ class plugin_yangcong_base {
 	 * uuid      事件id
 	 */
 	public function getBindingCode() {
-		$result = $this->_post($this->_GetBindingCode, array('appid' => $this->APP_ID, 'signature' => md5('appid=' . $this->APP_ID . $this->APP_KEY)));
+		// $result = $this->_post($this->_GetBindingCode, array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY)));
+		$arr= array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY));
+		$url=$this->__GetBindingCode."?app_id=".$arr['app_id']."&signature=".$arr['signature'];
+	 	$result=$this->_get($url);
 		return $result;
+
 	}
 
 	/**
@@ -127,8 +132,11 @@ class plugin_yangcong_base {
 	 * uuid      事件id
 	 */
 	public function getLoginCode() {
-		$result = $this->_post($this->_GetLoginCode, array('appid' => $this->APP_ID, 'signature' => md5('appid=' . $this->APP_ID . $this->APP_KEY)));
-		return $result;
+	 	// $result = $this->_post($this->_GetLoginCode, array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY)));
+	 	$arr=array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY));
+	 	$url=$this->_GetLoginCode."?app_id=".$arr['app_id']."&signature=".$arr['signature'];
+	 	$result=$this->_get($url);
+	   return $result;
 	}
 
 	/**
@@ -140,7 +148,10 @@ class plugin_yangcong_base {
 	 * userid  用户ID
 	 */
 	public function getResult($uuid) {
-		$result = $this->_post($this->_GetResult, array('appid' => $this->APP_ID, 'uuid' => $uuid, 'signature' => md5('appid=' . $this->APP_ID . 'uuid=' . $uuid . $this->APP_KEY)));
+		// $result = $this->_post($this->_GetResult, array('app_id' => $this->APP_ID, 'event_id' => $uuid, 'signature' => md5('app_id=' . $this->APP_ID . 'event_id=' . $uuid . $this->APP_KEY)));
+		$arr= array('app_id' => $this->APP_ID, 'event_id' => $uuid, 'signature' => md5('app_id=' . $this->APP_ID . 'event_id=' . $uuid . $this->APP_KEY));
+		$url=$this->__GetResult."?app_id=".$arr['app_id']."&signature=".$arr['signature']."&event_id=".$arr['event_id'];
+	 	$result=$this->_get($url);
 		return $result;
 	}
 
@@ -153,7 +164,7 @@ class plugin_yangcong_base {
 	 * uuid    事件id
 	 */
 	public function verifyOneClick($userid, $action = 'login') {
-		$result = $this->_post($this->_VerifyOneClick, array('appid' => $this->APP_ID, 'userid' => $userid, 'action' => $action, 'signature' => md5('action=' . $action . 'appid=' . $this->APP_ID . 'userid=' . $userid . $this->APP_KEY)));
+		$result = $this->_post($this->_VerifyOneClick, array('app_id' => $this->APP_ID, 'uid' => $userid, 'action_typ' => $action, 'signature' => md5('action_typ=' . $action . 'app_id=' . $this->APP_ID . 'uid=' . $userid . $this->APP_KEY)));
 		return $result;
 	}
 
@@ -166,15 +177,15 @@ class plugin_yangcong_base {
 	 * message 错误信息
 	 */
 	public function verifyOTP($userid, $dnum) {
-		$result = $this->_post($this->_VerifyOTP, array('appid' => $this->APP_ID, 'userid' => $userid, 'dnum' => $dnum, 'signature' => md5('appid=' . $this->APP_ID . 'dnum=' . $dnum . 'userid=' . $userid . $this->APP_KEY)));
+		$result = $this->_post($this->_VerifyOTP, array('app_id' => $this->APP_ID, 'uid' => $userid, 'dynamic_code' => $dnum, 'signature' => md5('app_id=' . $this->APP_ID . 'dynamic_code=' . $dnum . 'uid=' . $userid . $this->APP_KEY)));
 		return $result;
 	}
 
 	public function authPage($callback) {
 		$time = time();
-		$d['signature'] = md5('authid=' . $this->WEBAUTHCODE . 'time=' . $time . 'callback=' . $callback . $this->APP_KEY);
-		$d['authid'] = $this->WEBAUTHCODE;
-		$d['time'] = $time;
+		$d['signature'] = md5('auth_id=' . $this->WEBAUTHCODE . 'timestamp=' . $time . 'callback=' . $callback . $this->APP_KEY);
+		$d['auth_id'] = $this->WEBAUTHCODE;
+		$d['timestamp'] = $time;
 		$d['callback'] = $callback;
 
 		return $this->_AuthPage . '?' . http_build_query($d);
@@ -193,30 +204,52 @@ class plugin_yangcong_base {
 	}
 
 	public function check_error($result) {
-		$this->_code = $result['code'];
-		$this->_message = (isset($this->_error_code[$result['code']]) ? $this->_error_code[$result['code']] : $result['message']);
-		return $result['code'] === 0 ? TRUE : FALSE;
+		$this->_code = $result['status'];
+		$this->_message = (isset($this->_error_code[$result['status']]) ? $this->_error_code[$result['status']] : $result['description']);
+		return $result['status'] === 200 ? TRUE : FALSE;
 	}
 
 	function _post($url, $post = array()) {
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+		$curl = curl_init(); //初始化一个cURL会话
+		curl_setopt($curl, CURLOPT_URL, $url); //设置一个cURL传输选项
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE); //禁用后cURL将终止从服务端进行验证
 		//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, TRUE);
-		curl_setopt($curl, CURLOPT_USERAGENT, !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : FALSE);
+		curl_setopt($curl, CURLOPT_USERAGENT, !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : FALSE); //在HTTP请求中包含一个"User-Agent: "头的字符串。 
 		curl_setopt($curl, CURLOPT_HEADER, FALSE);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($curl, CURLOPT_POST, TRUE);
+		curl_setopt($curl, CURLOPT_POST, TRUE); //启用时会发送一个常规的POST请求
 		curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post));
 		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 		curl_setopt($curl, CURLOPT_HEADER, 0);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		$result = curl_exec($curl);
-		if (curl_errno($curl)) {
+		$result = curl_exec($curl); // 执行一个cURL会话
+		if (curl_errno($curl)) { //返回最后一次的错误号
 			//exit('Errno' . curl_error($curl));
 			return NULL;
 		}
-		curl_close($curl);
+		curl_close($curl);//关闭一个cURL会话
+		$result = (array) json_decode($result);
+		return $result;
+		// return $this->check_error($result) === TRUE ? $result : NULL;
+	}
+	//get方式发送
+	function _get($url) {
+		$curl = curl_init(); //初始化一个cURL会话
+		curl_setopt($curl, CURLOPT_URL, $url); //设置一个cURL传输选项
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE); //禁用后cURL将终止从服务端进行验证
+		//curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, TRUE);
+		curl_setopt($curl, CURLOPT_USERAGENT, !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : FALSE); //在HTTP请求中包含一个"User-Agent: "头的字符串。 
+		curl_setopt($curl, CURLOPT_HEADER, FALSE);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+		curl_setopt($curl, CURLOPT_HEADER, 0);
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		$result = curl_exec($curl); // 执行一个cURL会话
+		if (curl_errno($curl)) { //返回最后一次的错误号
+			//exit('Errno' . curl_error($curl));
+			return NULL;
+		}
+		curl_close($curl);//关闭一个cURL会话
 		$result = (array) json_decode($result);
 		return $this->check_error($result) === TRUE ? $result : NULL;
 	}

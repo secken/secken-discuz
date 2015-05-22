@@ -2,27 +2,26 @@
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-
 require_once DISCUZ_ROOT . './source/plugin/yangcong/yangcong.class.php';
 $yangcong = new \plugin_yangcong_base();
 if (!empty($_GET['auth_page'])) {
 	exit(header('Location:' . $yangcong->authPage($_G['siteurl'] . 'plugin.php?id=yangcong:callback')));
-} elseif (!empty($_GET['cechk']) && !empty($_POST['uuid'])) {
-	$info = $yangcong->getResult($_POST['uuid']);
-	if (!empty($info['userid'])) {
+} elseif (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+	$info = $yangcong->getResult($_POST['event_id']);
+	if (!empty($info['uid'])) {
 		$sql = "select * from `pre_yangcong` where `uid` != %f AND `yangcong` = %f  limit 1";
-		$var = DB::fetch_first($sql, array($_G['uid'], $info['userid']));
+		$var = DB::fetch_first($sql, array($_G['uid'], $info['uid']));
 		if (!empty($var['uid'])) {
 			showmessage('已经被其他账号绑定了', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		}
 		$sql = "select * from `pre_yangcong` where `uid` = %f  limit 1";
 		$var = DB::fetch_first($sql, array($_G['uid']));
 		if (!empty($var['uid'])) {
-			DB::update('yangcong', array('yangcong' => $info['userid']), DB::field('uid', $_G['uid']));
+			DB::update('yangcong', array('yangcong' => $info['uid']), DB::field('uid', $_G['uid']));
 		} else {
 			$data = array(
 				'uid' => $_G['uid'],
-				'yangcong' => $info['userid'],
+				'yangcong' => $info['uid'],
 			);
 			DB::insert('yangcong', $data, false, true);
 		}
@@ -50,11 +49,11 @@ if (empty($_POST['handlekey'])) {
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_<?php echo $loginhash?>" action="plugin.php?id=yangcong:bind&cechk=true">
         <div class="c cl">
-            <input type="hidden" name="uuid" value="<?php echo $loginCode['uuid']?>" />
+            <input type="hidden" name="event_id" value="<?php echo $loginCode['event_id']?>" />
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
             <?php if (is_array($loginCode)) {?>
                 <div class="rfm yangcong-content">
-                    <img width="75%" id="yangcongqrcode"  src="<?php echo $loginCode['url'];?>">
+                    <img width="75%" id="yangcongqrcode"  src="<?php echo $loginCode['qrcode_url'];?>">
                 </div>
             <?php } else {?>
             <div class="alert">

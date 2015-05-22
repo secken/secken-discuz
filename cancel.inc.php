@@ -9,8 +9,8 @@ if (!$_G['uid']) {
 require_once DISCUZ_ROOT . './source/plugin/yangcong/yangcong.class.php';
 $yangcong = new \plugin_yangcong_base();
 
-if (!empty($_GET['cechk']) && !empty($_POST['uuid'])) {
-	$info = $yangcong->getResult($_POST['uuid']);
+if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['userid'])) {
 		$sql = "delete from `pre_yangcong` where `uid`=%f and `yangcong`=%f  LIMIT 1";
 		DB::fetch_first($sql, array($_G['uid'], $info['userid']));
@@ -39,7 +39,7 @@ include template('common/header');
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_<?php echo $loginhash?>" action="plugin.php?id=yangcong:cancel&cechk=true">
         <div class="c cl">
-            <input type="hidden" name="uuid" value="<?php echo $loginCode['uuid']?>" />
+            <input type="hidden" name="uuid" value="<?php echo $loginCode['event_id']?>" />
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
             <div id="return_yangcong_message<?php echo $loginhash?>">
                 等待一键授权

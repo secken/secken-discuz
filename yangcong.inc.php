@@ -2,22 +2,21 @@
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-
 require_once DISCUZ_ROOT . './source/plugin/yangcong/yangcong.class.php';
 $yangcong = new \plugin_yangcong_base();
 if (!empty($_GET['auth_page'])) {
 	exit(header('Location:' . $yangcong->authPage($_G['siteurl'] . 'plugin.php?id=yangcong:callback')));
-} elseif (!empty($_GET['cechk']) && !empty($_POST['uuid'])) {
-	$info = $yangcong->getResult($_POST['uuid']);
-	if (!empty($info['userid'])) {
+} elseif (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+	$info = $yangcong->getResult($_POST['event_id']);
+	if (!empty($info['uid'])) {
 		$sql = "select * from `pre_yangcong` where `yangcong` = %f  limit 1";
-		$var = DB::fetch_first($sql, array($info['userid']));
+		$var = DB::fetch_first($sql, array($info['uid']));
 		if (!empty($var['uid'])) {
 			$member = getuserbyuid($var['uid'], 1);
 			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
 			showmessage('登录成功', null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		} else {
-			$auth = authcode($info['userid'], 'ENCODE', $_G['config']['security']['authkey']);
+			$auth = authcode($info['uid'], 'ENCODE', $_G['config']['security']['authkey']);
 			dsetcookie('yangconguid', $auth);
 			showmessage('授权失败，可能没有绑定洋葱授权', 'member.php?mod=register', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		}
@@ -29,10 +28,8 @@ if (!empty($_GET['auth_page'])) {
 		}
 	}
 }
-
 $loginCode = $yangcong->getLoginCode();
 $loginhash = 'L' . random(4);
-
 include template('common/header');
 if (empty($_POST['handlekey'])) {
 	?>
@@ -43,11 +40,11 @@ if (empty($_POST['handlekey'])) {
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_<?php echo $loginhash?>" action="plugin.php?id=yangcong&cechk=true" fwin="yangconglogin">
         <div class="c cl">
-            <input type="hidden" name="uuid" value="<?php echo $loginCode['uuid']?>" />
+            <input type="hidden" name="event_id" value="<?php echo $loginCode['event_id']?>" />
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
             <?php if (is_array($loginCode)) {?>
                 <div class="rfm yangcong-content">
-                    <img width="260px" id="yangcongqrcode"  src="<?php echo $loginCode['url'];?>">
+                    <img width="260px" id="yangcongqrcode"  src="<?php echo $loginCode['qrcode_url'];?>">
                 </div>
             <?php } else {?>
             <div class="alert">
