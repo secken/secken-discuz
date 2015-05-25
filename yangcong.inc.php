@@ -21,8 +21,9 @@ if (!empty($_GET['auth_page'])) {
 			showmessage('授权失败，可能没有绑定洋葱授权', 'member.php?mod=register', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		}
 	} else {
-		if ($yangcong->get_code() === 300056) {
-			showmessage($yangcong->get_message(), null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+		if ($yangcong->get_code() === 602) {
+            showmessage('请扫二维码进行授权绑定', NULL, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+			// showmessage($yangcong->get_message(), null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		} else {
 			showmessage($yangcong->get_message(), null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		}

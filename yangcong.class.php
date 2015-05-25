@@ -117,7 +117,8 @@ class plugin_yangcong_base {
 	public function getBindingCode() {
 		// $result = $this->_post($this->_GetBindingCode, array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY)));
 		$arr= array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY));
-		$url=$this->__GetBindingCode."?app_id=".$arr['app_id']."&signature=".$arr['signature'];
+
+		$url=$this->_GetBindingCode."?app_id=".$arr['app_id']."&signature=".$arr['signature'];
 	 	$result=$this->_get($url);
 		return $result;
 
@@ -135,6 +136,7 @@ class plugin_yangcong_base {
 	 	// $result = $this->_post($this->_GetLoginCode, array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY)));
 	 	$arr=array('app_id' => $this->APP_ID, 'signature' => md5('app_id=' . $this->APP_ID . $this->APP_KEY));
 	 	$url=$this->_GetLoginCode."?app_id=".$arr['app_id']."&signature=".$arr['signature'];
+
 	 	$result=$this->_get($url);
 	   return $result;
 	}
@@ -150,7 +152,7 @@ class plugin_yangcong_base {
 	public function getResult($uuid) {
 		// $result = $this->_post($this->_GetResult, array('app_id' => $this->APP_ID, 'event_id' => $uuid, 'signature' => md5('app_id=' . $this->APP_ID . 'event_id=' . $uuid . $this->APP_KEY)));
 		$arr= array('app_id' => $this->APP_ID, 'event_id' => $uuid, 'signature' => md5('app_id=' . $this->APP_ID . 'event_id=' . $uuid . $this->APP_KEY));
-		$url=$this->__GetResult."?app_id=".$arr['app_id']."&signature=".$arr['signature']."&event_id=".$arr['event_id'];
+		$url=$this->_GetResult."?app_id=".$arr['app_id']."&signature=".$arr['signature']."&event_id=".$arr['event_id'];
 	 	$result=$this->_get($url);
 		return $result;
 	}
@@ -164,7 +166,7 @@ class plugin_yangcong_base {
 	 * uuid    事件id
 	 */
 	public function verifyOneClick($userid, $action = 'login') {
-		$result = $this->_post($this->_VerifyOneClick, array('app_id' => $this->APP_ID, 'uid' => $userid, 'action_typ' => $action, 'signature' => md5('action_typ=' . $action . 'app_id=' . $this->APP_ID . 'uid=' . $userid . $this->APP_KEY)));
+		$result = $this->_post($this->_VerifyOneClick, array('action_type' => $action,'app_id' => $this->APP_ID,'uid' => $userid, 'signature' => md5('action_type=' . $action . 'app_id=' . $this->APP_ID . 'uid=' . $userid . $this->APP_KEY)));
 		return $result;
 	}
 
@@ -183,12 +185,14 @@ class plugin_yangcong_base {
 
 	public function authPage($callback) {
 		$time = time();
-		$d['signature'] = md5('auth_id=' . $this->WEBAUTHCODE . 'timestamp=' . $time . 'callback=' . $callback . $this->APP_KEY);
+		$d['signature'] = md5('auth_id='.$this->WEBAUTHCODE.'callback=' . $callback . 'timestamp=' . $time . $this->APP_KEY);
 		$d['auth_id'] = $this->WEBAUTHCODE;
 		$d['timestamp'] = $time;
 		$d['callback'] = $callback;
-
-		return $this->_AuthPage . '?' . http_build_query($d);
+		$url=$this->_AuthPage."?auth_id=".$d['auth_id']."&timestamp=".$d['timestamp']."&callback=".$d['callback']."&signature=".$d['signature'];
+		$result=$this->_get($url);
+		return $result;
+		// return $this->_AuthPage . '?' . http_build_query($d);
 	}
 
 	/**
