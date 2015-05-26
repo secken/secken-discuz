@@ -10,7 +10,7 @@ if (!empty($_GET['auth_page'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['uid'])) {
 		$sql = "select * from `pre_yangcong` where `yangcong` = '".$info['uid']."'  limit 1";
-		$var = DB::fetch_all($sql);
+		$var = DB::fetch_first($sql);
 		if (!empty($var['uid'])) {
 			$member = getuserbyuid($var['uid'], 1);
 			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
