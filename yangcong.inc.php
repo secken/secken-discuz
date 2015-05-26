@@ -10,8 +10,8 @@ if (!empty($_GET['auth_page'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['uid'])) {
 		var_dump($info);
-		$sql = "select * from `pre_yangcong` where yangcong = '%f'  limit 1";
-		$var = DB::fetch_first($sql, array($info['uid']));
+		$sql = "select * from `pre_yangcong` where `yangcong` = %f  limit 1";
+		$var = DB::fetch_all($sql, array($info['uid']));
 		var_dump($var);
 		exit();
 		if (!empty($var['uid'])) {
