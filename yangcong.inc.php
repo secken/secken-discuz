@@ -11,8 +11,8 @@ if (!empty($_GET['auth_page'])) {
 	if (!empty($info['uid'])) {
 		var_dump($info);
 		$sql = "select * from `pre_yangcong` where `yangcong` = %f  limit 1";
-		$var = DB::fetch_first($sql, array($info['uid']));
-		var_dump($info);
+		$var = DB::fetch_first($sql, $info['uid']);
+		var_dump($var);
 		exit();
 		if (!empty($var['uid'])) {
 			$member = getuserbyuid($var['uid'], 1);
