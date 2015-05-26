@@ -9,11 +9,8 @@ if (!empty($_GET['auth_page'])) {
 } elseif (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['uid'])) {
-		var_dump($info);
 		$sql = "select * from `pre_yangcong` where `yangcong` = '".$info['uid']."'  limit 1";
-		$var = DB::fetch_all($sql, array($info['uid']));
-		var_dump($var);
-		exit();
+		$var = DB::fetch_all($sql);
 		if (!empty($var['uid'])) {
 			$member = getuserbyuid($var['uid'], 1);
 			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
