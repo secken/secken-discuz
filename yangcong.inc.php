@@ -12,7 +12,7 @@ if (!empty($_GET['auth_page'])) {
 		$sql = "select * from `pre_yangcong` where `yangcong` = %f  limit 1";
 		$var = DB::fetch_first($sql, array($info['uid']));
 		if (!empty($var['uid'])) {
-			$member = getuserbyuid($var['uid'], 1);
+			$member = getuserbyuid($var['uid'], $var['uid']);
 			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
 			showmessage('登录成功', null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		} else {
