@@ -2,19 +2,54 @@
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+@session_start();
 require_once DISCUZ_ROOT . './source/plugin/yangcong/yangcong.class.php';
 $yangcong = new \plugin_yangcong_base();
+if ($_POST['handlekey']) {
+    $loginhash = $_POST['handlekey'];
+} else {
+    $loginhash = 'L' . random(4);
+}
 if (!empty($_GET['auth_page'])) {
 	exit(header('Location:' . $yangcong->authPage($_G['siteurl'] . 'plugin.php?id=yangcong:callback')));
 } elseif (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
-	$info = $yangcong->getResult($_POST['event_id']);
+    $loginhash = substr($loginhash, 16);
+    if ($_POST['mmem'] && $_SESSION['mmem']) {
+        $info = $_SESSION['mmem'];
+    } else {
+        $info = $yangcong->getResult($_POST['event_id']);
+        $_SESSION['mmem'] = $info;
+    }
 	if (!empty($info['uid'])) {
-		$sql = "select * from `pre_yangcong` where `yangcong` = '".$info['uid']."'  limit 1";
-		$var = DB::fetch_first($sql);
-		if (!empty($var['uid'])) {
-			$member = getuserbyuid($var['uid'], 1);
-			dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
-			showmessage('登录成功', null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+		$sql = "select * from `pre_yangcong` where `yangcong` =  %s";
+		$var = DB::fetch_all($sql, array($info['uid']));
+		if ($var) {
+            $uid = 0;
+            $mem = array();
+            if (count($var) > 1) {
+                foreach ($var as $v) {
+                    $m = getuserbyuid($v['uid'], 1);
+                    $mmem[] = $m;
+                    if ($v['uid'] == $_POST['mmem']) {
+                        $uid = $_POST['mmem'];
+                        break;
+                    }
+                }
+            } else {
+                $uid = $var[0]['uid'];
+            }
+            if ($uid) {
+                $member = getuserbyuid($uid, 1);
+                dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
+                showmessage('登录成功', null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+            } else {
+                $tpl = "<script>clearInterval(doing);$('yangcong-content').style.display='none';</script><div>请选择账号：<br>";
+                foreach ($mmem as $m) {
+                    $tpl .= "<div><a href='javascript:yangcong_SetMMem({$m['uid']}, \"{$loginhash}\")'>{$m['username']}</a></div>";
+                }
+                $tpl .= "</div>";
+                showmessage($tpl, null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+            }
 		} else {
 			$auth = authcode($info['uid'], 'ENCODE', $_G['config']['security']['authkey']);
 			dsetcookie('yangconguid', $auth);
@@ -30,7 +65,6 @@ if (!empty($_GET['auth_page'])) {
 	}
 }
 $loginCode = $yangcong->getLoginCode();
-$loginhash = 'L' . random(4);
 include template('common/header');
 if (empty($_POST['handlekey'])) {
 	?>
@@ -43,6 +77,8 @@ if (empty($_POST['handlekey'])) {
         <div class="c cl">
             <input type="hidden" name="event_id" value="<?php echo $loginCode['event_id']?>" />
             <input type='hidden' name='handlekey' value="yangcong_message<?php echo $loginhash?>" />
+            <input type="hidden" id="mmem" name="mmem" value="" />
+            <div id="yangcong-content">
             <?php if (is_array($loginCode)) {?>
                 <div class="rfm yangcong-content">
                     <img width="260px" id="yangcongqrcode"  src="<?php echo $loginCode['qrcode_url'];?>">
@@ -52,6 +88,7 @@ if (empty($_POST['handlekey'])) {
                 <strong>获取登陆二维码错误</strong>
             </div>
             <?php }?>
+            </div>
             <div id="return_yangcong_message<?php echo $loginhash?>" class="yangcong-message-box">
                 <?php echo $yangcong->get_message();?>
             </div>
@@ -61,7 +98,7 @@ if (empty($_POST['handlekey'])) {
 </div>
 <script src="./source/plugin/yangcong/template/js/yangcong.js" type="text/javascript"></script>
 <script type="text/javascript">
-            setInterval("yangcong_GetResult('<?php echo $loginhash?>')", 3000);
+doing = setInterval("yangcong_GetResult('<?php echo $loginhash?>')", 3000);
 </script>
 <?php } else {?>
         <div class="alert">
