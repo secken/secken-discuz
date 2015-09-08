@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <root>
-	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Title"><![CDATA[洋葱授权]]></item>
 	<item id="Version"><![CDATA[X3,X3.1,X3.2]]></item>
 	<item id="Time"><![CDATA[2015-03-16 00:12]]></item>
-	<item id="From"><![CDATA[Discuz! Board (http://discuz.t.usvn.org/)]]></item>
+	<item id="From"><![CDATA[Secken,inc (https://yangcong.com/)]]></item>
 	<item id="Data">
 		<item id="plugin">
 			<item id="available"><![CDATA[1]]></item>
@@ -14,7 +14,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[yangcong/]]></item>
 			<item id="copyright"><![CDATA[support@secken.com]]></item>
-			<item id="version"><![CDATA[1.0]]></item>
+			<item id="version"><![CDATA[1.1]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[binding]]></item>
@@ -52,7 +52,7 @@
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[appid]]></item>
 				<item id="type"><![CDATA[text]]></item>
-				<item id="value"><![CDATA[GgxRmTDu2ntGvEskS2npG4kqMZRpWZNv]]></item>
+				<item id="value"><![CDATA[IDb7JfflVli3qNXMZs0hCOTPWCaiQzM8]]></item>
 				<item id="extra"><![CDATA[]]></item>
 			</item>
 			<item id="1">
@@ -61,7 +61,7 @@
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[appkey]]></item>
 				<item id="type"><![CDATA[text]]></item>
-				<item id="value"><![CDATA[SEZXRTBVTPcrTzX6HqOY]]></item>
+				<item id="value"><![CDATA[B4T8XFkj5brLeqBqyOeG]]></item>
 				<item id="extra"><![CDATA[]]></item>
 			</item>
 			<item id="2">
@@ -70,7 +70,7 @@
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[code]]></item>
 				<item id="type"><![CDATA[text]]></item>
-				<item id="value"><![CDATA[uMGWRULNxggi9XATNk6I]]></item>
+				<item id="value"><![CDATA[ojEU0JofyQEpD0Y2zSJE]]></item>
 				<item id="extra"><![CDATA[]]></item>
 			</item>
 		</item>
