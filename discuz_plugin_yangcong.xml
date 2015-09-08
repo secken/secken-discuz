@@ -8,9 +8,9 @@
 		<item id="plugin">
 			<item id="available"><![CDATA[1]]></item>
 			<item id="adminid"><![CDATA[1]]></item>
-			<item id="name"><![CDATA[洋葱授权]]></item>
+			<item id="name"><![CDATA[娲嬭懕鎺堟潈]]></item>
 			<item id="identifier"><![CDATA[yangcong]]></item>
-			<item id="description"><![CDATA[原DNSPod创始人吴洪声，第二次创业起航，倾情打造划时代产品，带领豪华技术团队，为用户提供移动互联网时代的全新账号安全体系]]></item>
+			<item id="description"><![CDATA[鍘烡NSPod鍒涘浜哄惔娲０锛岀浜屾鍒涗笟璧疯埅锛屽�炬儏鎵撻�犲垝鏃朵唬浜у搧锛屽甫棰嗚豹鍗庢妧鏈洟闃燂紝涓虹敤鎴锋彁渚涚Щ鍔ㄤ簰鑱旂綉鏃朵唬鐨勫叏鏂拌处鍙峰畨鍏ㄤ綋绯籡]></item>
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[yangcong/]]></item>
 			<item id="copyright"><![CDATA[support@secken.com]]></item>
@@ -19,7 +19,7 @@
 				<item id="0">
 					<item id="name"><![CDATA[binding]]></item>
 					<item id="param"><![CDATA[]]></item>
-					<item id="menu"><![CDATA[洋葱绑定]]></item>
+					<item id="menu"><![CDATA[娲嬭懕缁戝畾]]></item>
 					<item id="url"><![CDATA[]]></item>
 					<item id="type"><![CDATA[7]]></item>
 					<item id="adminid"><![CDATA[0]]></item>
@@ -48,7 +48,7 @@
 		<item id="var">
 			<item id="0">
 				<item id="displayorder"><![CDATA[1]]></item>
-				<item id="title"><![CDATA[应用id]]></item>
+				<item id="title"><![CDATA[搴旂敤id]]></item>
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[appid]]></item>
 				<item id="type"><![CDATA[text]]></item>
@@ -57,7 +57,7 @@
 			</item>
 			<item id="1">
 				<item id="displayorder"><![CDATA[2]]></item>
-				<item id="title"><![CDATA[应用Key]]></item>
+				<item id="title"><![CDATA[搴旂敤Key]]></item>
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[appkey]]></item>
 				<item id="type"><![CDATA[text]]></item>
@@ -66,7 +66,7 @@
 			</item>
 			<item id="2">
 				<item id="displayorder"><![CDATA[3]]></item>
-				<item id="title"><![CDATA[web授权code]]></item>
+				<item id="title"><![CDATA[web鎺堟潈code]]></item>
 				<item id="description"><![CDATA[]]></item>
 				<item id="variable"><![CDATA[code]]></item>
 				<item id="type"><![CDATA[text]]></item>
