@@ -31,8 +31,8 @@ class plugin_yangcong extends plugin_yangcong_base {
 		if (!$_G['uid']) {
 			return;
 		}
-		$sql = "select * from `pre_yangcong` where `uid` = %f  limit 1";
-		$var = DB::fetch_first($sql, array($_G['uid']));
+		$sql = "select * from %t where `uid` = %f  limit 1";
+		$var = DB::fetch_first($sql, array('yangcong',$_G['uid']));
 		if (!empty($var['yangcong'])) {
 			return;
 		}
@@ -65,8 +65,8 @@ class plugin_yangcong_member extends plugin_yangcong_base {
 		if ($_G['uid'] != 0 && CURSCRIPT == 'member' && $_GET['inajax'] == 1) {
 			$userid = authcode(getcookie('yangconguid'), 'DECODE', $_G['config']['security']['authkey']);
 			if (!empty($userid)) {
-				$sql = "select * from `pre_yangcong` where `uid` = %f  limit 1";
-				$var = DB::fetch_first($sql, array($_G['uid']));
+				$sql = "select * from %t where `uid` = %f  limit 1";
+				$var = DB::fetch_first($sql, array('yangcong', $_G['uid']));
 				if (!empty($var['uid'])) {
 					DB::update('yangcong', array('yangcong' => $userid), DB::field('uid', $_G['uid']));
 				} else {

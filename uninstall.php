@@ -3,11 +3,7 @@ if(!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-$sql = <<<EOF
-
-DROP TABLE pre_yangcong;
-
-EOF;
-//runquery($sql);
+$sql = " DROP TABLE ". DB::table('yangcong') .";";
+runquery($sql);
 
 $finish = TRUE;

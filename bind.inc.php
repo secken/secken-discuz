@@ -18,8 +18,8 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 
 	if (!empty($info['uid'])) {
-		$sql = "select `uid` from `pre_yangcong` where `uid` = %d AND `yangcong` = %s";
-		$var = DB::fetch_first($sql, array($_G['uid'], $info['uid']));
+		$sql = "select `uid` from %t where `uid` = %d AND `yangcong` = %s";
+		$var = DB::fetch_first($sql, array('yangcong', $_G['uid'], $info['uid']));
 
 		//如果已经绑定，跳转到解绑页面
 		if (!empty($var['uid'])) {
@@ -27,8 +27,8 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 		}
 
 		//进行绑定业务
-		$sql = "select `uid` from `pre_yangcong` where `uid` = %d";
-		$var = DB::fetch_first($sql, array($_G['uid']));
+		$sql = "select `uid` from %t where `uid` = %d";
+		$var = DB::fetch_first($sql, array('yangcong', $_G['uid']));
 
 		//更新绑定纪录
 		if (!empty($var['uid'])) {

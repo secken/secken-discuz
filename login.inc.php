@@ -21,8 +21,8 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 
 	if ($code == 200) {
 
-		$sql = "select `uid` from `pre_yangcong` where `yangcong` =  %s";
-		$var = DB::fetch_all($sql, array($info['uid']));
+		$sql = "select `uid` from %t where `yangcong` =  %s";
+		$var = DB::fetch_all($sql, array('yangcong', $info['uid']));
 
 		if (!empty($var)) {
 

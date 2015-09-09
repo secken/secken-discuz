@@ -32,7 +32,7 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 		}
 	}
 }
-$sql = "select * from `pre_yangcong` where `uid` = %f  limit 1";
-$_G['yangcong'] = DB::fetch_first($sql, array($_G['uid']));
+$sql = "select * from %t where `uid` = %f  limit 1";
+$_G['yangcong'] = DB::fetch_first($sql, array('yangcong',$_G['uid']));
 
 require_once template('yangcong:cancle');
