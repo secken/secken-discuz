@@ -18,28 +18,24 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 
 	if (!empty($info['uid'])) {
-		$sql = "select `uid` from %t where `uid` = %d AND `yangcong` = %s";
-		$var = DB::fetch_first($sql, array('yangcong', $_G['uid'], $info['uid']));
+		$bind_info = C::t('#yangcong#yangcong')->getBindInfo($_G['uid'], $info['uid']);
 
 		//如果已经绑定，跳转到解绑页面
-		if (!empty($var['uid'])) {
+		if (!empty($bind_info['uid'])) {
 			showmessage('账号已经绑定', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		}
 
-		//进行绑定业务
-		$sql = "select `uid` from %t where `uid` = %d";
-		$var = DB::fetch_first($sql, array('yangcong', $_G['uid']));
-
 		//更新绑定纪录
-		if (!empty($var['uid'])) {
-			DB::update('yangcong', array('yangcong' => $info['uid']), DB::field('uid', $_G['uid']));
+		if (!empty($bind_info['uid'])) {
+			C::t('#yangcong#yangcong')->updateBindInfo($_G['uid'], $info['uid']);
 		} else {
 			$data = array();
 			$data = array(
 				'uid' => $_G['uid'],
 				'yangcong' => $info['uid'],
 			);
-			DB::insert('yangcong', $data, false, true);
+
+			C::t('#yangcong#yangcong')->insertBindInfo($data);
 		}
 		showmessage('绑定成功', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 

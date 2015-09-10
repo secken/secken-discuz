@@ -22,7 +22,7 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['uid'])) {
 
-		DB::delete('yangcong', array('uid'=>$_G['uid'], 'yangcong'=>$info['uid']));
+		C::t('#yangcong#yangcong')->deleteBindInfo($_G['uid'], $info['uid']);
 		showmessage('绑定取消成功', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 	} else {
 		if ($yangcong->getCode() == 602) {
@@ -32,7 +32,7 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 		}
 	}
 }
-$sql = "select * from %t where `uid` = %f  limit 1";
-$_G['yangcong'] = DB::fetch_first($sql, array('yangcong',$_G['uid']));
+
+$_G['yangcong'] = C::t('#yangcong#yangcong')->getYangCongUid($_G['uid']);
 
 require_once template('yangcong:cancle');

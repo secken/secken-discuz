@@ -21,12 +21,11 @@ if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
 
 	if ($code == 200) {
 
-		$sql = "select `uid` from %t where `yangcong` =  %s";
-		$var = DB::fetch_all($sql, array('yangcong', $info['uid']));
+		$var = C::t('#yangcong#yangcong')->getUid($info['uid']);
 
 		if (!empty($var)) {
 
-            $uid = $var[0]['uid'];
+            $uid = $var['uid'];
 
             if ($uid) {
                 $member = getuserbyuid($uid, 1);
