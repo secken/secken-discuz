@@ -1,4 +1,7 @@
 <?php
+if (!defined('IN_DISCUZ')) {
+	exit('Access Denied');
+}
 /**
  * PHP SDK for yangcong.com
  * 洋葱授权类 v2.0
