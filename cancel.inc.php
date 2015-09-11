@@ -17,7 +17,7 @@ $yangcong = new secken($app_id, $app_key, $auth_id);
 
 $authhash = 'L' . random(4);
 
-if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+if (submitcheck('confirmsubmit')) {
 
 	$info = $yangcong->getResult($_POST['event_id']);
 	if (!empty($info['uid'])) {

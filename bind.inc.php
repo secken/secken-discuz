@@ -13,7 +13,7 @@ $yangcong = new secken($app_id, $app_key, $auth_id);
 $bindhash = isset($_POST['handlekey']) ? trim($_POST['handlekey']) : 'L' . random(4);
 
 //进行绑定请求
-if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+if (submitcheck('confirmsubmit')) {
 	//查询详细事件信息
 	$info = $yangcong->getResult($_POST['event_id']);
 

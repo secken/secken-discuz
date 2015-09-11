@@ -5,7 +5,7 @@
         <em >取消绑定</em>
         <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongcancel')" title="关闭">关闭</a></span>
     </h3>
-    <form method="post" autocomplete="off" class="cl" id="yangcongform_$authhash" action="plugin.php?id=yangcong:cancel&cechk=true" fwin="yangcongcancel">
+    <form method="post" autocomplete="off" class="cl" id="yangcongform_$authhash" action="plugin.php?id=yangcong:cancel&infloat=yes&confirmsubmit=yes" fwin="yangcongcancel">
         <div class="c cl">
             <input type="hidden" name="event_id" value="$authCode['event_id']" />
             <input type='hidden' name='handlekey' value="yangcong_message$authhash" />
@@ -13,6 +13,7 @@
             <div id="return_yangcong_message$authhash" class="yangcong-message-box" style="margin-top:5px;">
                 正在进行一键授权验证...
             </div>
+            <input type="submit" name="confirmsubmit" value="true" style="display:none;"/>
         </div>
     </form>
 </div>

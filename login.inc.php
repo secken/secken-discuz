@@ -14,7 +14,7 @@ $yangcong = new secken($app_id, $app_key, $auth_id);
 $loginhash = isset($_POST['handlekey']) ? trim($_POST['handlekey']) : 'L' . random(4);
 
 //登陆验证
-if (!empty($_GET['cechk']) && !empty($_POST['event_id'])) {
+if (submitcheck('confirmsubmit')) {
 
     $info = $yangcong->getResult($_POST['event_id']);
 	$code = $yangcong->getCode();

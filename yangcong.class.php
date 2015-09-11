@@ -31,8 +31,8 @@ class plugin_yangcong extends plugin_yangcong_base {
 		if (!$_G['uid']) {
 			return;
 		}
-		$sql = "select * from %t where `uid` = %f  limit 1";
-		$var = DB::fetch_first($sql, array('yangcong',$_G['uid']));
+
+		$var = C::t('#yangcong#yangcong')->getYangCongUid($_G['uid']);
 		if (!empty($var['yangcong'])) {
 			return;
 		}

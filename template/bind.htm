@@ -5,7 +5,7 @@
         <em >绑定洋葱授权</em>
         <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongbinding')" title="关闭">关闭</a></span>
     </h3>
-    <form method="post" autocomplete="off" class="cl" id="yangcongform_$bindhash" action="plugin.php?id=yangcong:bind&cechk=true" fwin="yangcongbinding">
+    <form method="post" autocomplete="off" class="cl" id="yangcongform_$bindhash" action="plugin.php?id=yangcong:bind&infloat=yes&confirmsubmit=yes" fwin="yangcongbinding">
         <div class="c cl">
             <input type="hidden" name="event_id" value="$bindCode['event_id']" />
             <input type='hidden' name='handlekey' value="yangcong_message$bindhash" />
@@ -24,6 +24,7 @@
             <div id="return_yangcong_message$bindhash" class="yangcong-message-box" style="margin-top:5px;">
                 {eval echo $yangcong->getMessage();}
             </div>
+            <input type="submit" name="confirmsubmit" value="true" style="display:none;"/>
         </div>
     </form>
 </div>
