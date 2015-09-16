@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS ".DB::table('yangcong')."(
 	`yangcong` varchar(50) DEFAULT NULL,
 	`pass` varchar(32) DEFAULT NULL,
 	INDEX  (`yangcong`) comment ''
-) ENGINE=`MyISAM` COMMENT='洋葱授权';
+) ENGINE=`MyISAM`;
 ";
 
 runquery($sql);

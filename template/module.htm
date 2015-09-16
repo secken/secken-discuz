@@ -1,39 +1,39 @@
 {eval
 function tpl_global_login_extra(){
-    global $_G;
+    global $lang;
 }
 
 <!--{block return}-->
 <div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
     <p>
         <a href="javascript:;" onclick="showWindow('yangconglogin', 'plugin.php?id=yangcong:login')">
-            <img src="./source/plugin/yangcong/template/image/login.jpg" class="vm" alt="洋葱扫一扫登录" />
+            <img src="./source/plugin/yangcong/template/image/login.jpg" class="vm" alt="$lang['template']['secken_login']" />
         </a>
     </p>
-    <p class="hm xg1" style="padding-top: 2px;">洋葱登录，快速安全</p>
+    <p class="hm xg1" style="padding-top: 2px;">$lang['template']['secken_login_1']</p>
 </div>
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval
 }
 function tpl_global_usernav_extra1(){
-    global $_G;
+
 }
 <!--{block return}-->
 <span class="pipe">|</span>
 <a href="javascript:;" onclick="showWindow('yangcongbinding', 'plugin.php?id=yangcong:bind')">
-    <img src="./source/plugin/yangcong/template/image/binding.jpg" class="vm" rel="nofollow" alt="洋葱扫一扫绑定" />
+    <img src="./source/plugin/yangcong/template/image/binding.jpg" class="vm" rel="nofollow" />
 </a>
 <!--{/block}-->
 <!--{eval return $return;}-->
 {eval
 }
 function tpl_logging_method(){
-    global $_G;
+
 }
 <!--{block return}-->
 <a href="javascript:;" onclick="showWindow('yangconglogin', 'plugin.php?id=yangcong:login')">
-    <img src="./source/plugin/yangcong/template/image/login.jpg" class="xi2" rel="nofollow" alt="洋葱扫一扫登录" />
+    <img src="./source/plugin/yangcong/template/image/login.jpg" class="xi2" rel="nofollow" />
 </a>
 <!--{/block}-->
 <!--{eval return $return;}-->

@@ -2,8 +2,8 @@
 {eval $loginCode = $yangcong->getAuth();}
 <div id="layer_lostpw_$loginhash" style="margin:5px;text-align: center;">
     <h3 class="flb">
-        <em >洋葱扫一扫登录</em>
-        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangconglogin')" title="关闭">关闭</a></span>
+        <em ><!--{eval echo $lang['template']['secken_login'];}--></em>
+        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangconglogin')" title="$lang['template']['close']"><!--{eval echo $lang['template']['close'];}--></a></span>
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_$loginhash" action="plugin.php?id=yangcong:login&infloat=yes&confirmsubmit=yes" fwin="yangconglogin">
         <div class="c cl">
@@ -17,12 +17,17 @@
                 </div>
             <!--{else}-->
             <div class="alert">
-                <strong>获取登陆二维码错误</strong>
+                <strong><!--{eval echo $lang['template']['get_qrcode_error'];}--></strong>
             </div>
             <!--{/if}-->
             </div>
             <div id="return_yangcong_message$loginhash" class="yangcong-message-box" style="margin-top:5px;">
-                {eval echo $yangcong->getMessage();}
+                <!--{eval $code = $yangcong->getCode();}-->
+                <!--{if !isset($lang['error_code'][$code])}-->
+                    $lang['error_code']['unknow_error']
+                <!--{else}-->
+                    $lang['error_code'][$code]
+                <!--{/if}-->
             </div>
         </div>
         <input type="submit" name="confirmsubmit" value="true" style="display:none;"/>

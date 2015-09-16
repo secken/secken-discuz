@@ -2,8 +2,8 @@
 {eval $bindCode = $yangcong->getBinding();}
 <div id="layer_lostpw_$bindhash" style="margin:5px;text-align: center;">
     <h3 class="flb">
-        <em >绑定洋葱授权</em>
-        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongbinding')" title="关闭">关闭</a></span>
+        <em ><!--{eval echo $lang['template']['bind_secken'];}--></em>
+        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongbinding')" title="$lang['template']['close']"><!--{eval echo $lang['template']['close']}--></a></span>
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_$bindhash" action="plugin.php?id=yangcong:bind&infloat=yes&confirmsubmit=yes" fwin="yangcongbinding">
         <div class="c cl">
@@ -17,12 +17,17 @@
                 </div>
             <!--{else}-->
             <div class="alert">
-                <strong>获取绑定二维码错误</strong>
+                <strong><!--{eval echo $lang['template']['get_qrcode_error'];}--></strong>
             </div>
             <!--{/if}-->
             </div>
             <div id="return_yangcong_message$bindhash" class="yangcong-message-box" style="margin-top:5px;">
-                {eval echo $yangcong->getMessage();}
+                <!--{eval $code = $yangcong->getCode();}-->
+                <!--{if !isset($lang['error_code'][$code])}-->
+                    $lang['error_code']['unknow_error']
+                <!--{else}-->
+                    $lang['error_code'][$code]
+                <!--{/if}-->
             </div>
             <input type="submit" name="confirmsubmit" value="true" style="display:none;"/>
         </div>

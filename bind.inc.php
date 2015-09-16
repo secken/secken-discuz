@@ -2,6 +2,8 @@
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
+
+require_once 'lang.'.currentlang().'.php';
 require_once DISCUZ_ROOT . './source/plugin/yangcong/secken.class.php';
 
 $app_id  = $_G['cache']['plugin']['yangcong']['appid'];
@@ -22,7 +24,7 @@ if (submitcheck('confirmsubmit')) {
 
 		//如果已经绑定，跳转到解绑页面
 		if (!empty($bind_info['uid'])) {
-			showmessage('账号已经绑定', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+			showmessage($lang['has_bind'], 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		}
 
 		//更新绑定纪录
@@ -37,13 +39,16 @@ if (submitcheck('confirmsubmit')) {
 
 			C::t('#yangcong#yangcong')->insertBindInfo($data);
 		}
-		showmessage('绑定成功', 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+		showmessage($lang['bind_success'], 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 
 	} else {
 		if ($yangcong->getCode() === 602) {
-			showmessage('请扫二维码进行授权绑定', NULL, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+			showmessage($lang['scan_to_bind'], NULL, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 		} else {
-			showmessage($yangcong->getMessage(), 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+			$code = $yangcong->getCode();
+			$error_message = !isset($lang['error_code'][$code]) ? $lang['error_code']['unknow_error'] : $lang['error_code'][$code];
+
+			showmessage($error_message, 'home.php?mod=spacecp&ac=plugin&id=yangcong:binding', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		}
 	}
 }

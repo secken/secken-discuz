@@ -48,23 +48,23 @@ class secken {
      * @var array
      */
     private $errorCode = array(
-        200 => '请求成功',
-        400 => '请求参数格式错误',
-        401 => 'app 状态错误',
-        402 => 'app_id错误',
-        403 => '请求签名错误',
-        404 => '请求API不存在',
-        405 => '请求方法错误',
-        406 => '不在应用白名单里',
-        407 => '30s离线验证太多次，请重新打开离线验证页面',
-        500 => '洋葱系统服务错误',
-        501 => '生成二维码图片失败',
-        600 => '动态验证码错误',
-        601 => '用户拒绝授权',
-        602 => '等待用户响应超时，可重试',
-        603 => '等待用户响应超时，不可重试',
-        604 => '用户或event_id不存在',
-        605 => '用户未开启该验证类型'
+        200 => 'Request success',
+        400 => 'Request params error',
+        401 => 'App status error',
+        402 => 'App_id error',
+        403 => 'Request signature error',
+        404 => 'Unknow request api',
+        405 => 'Request method error',
+        406 => 'Not in the application of the white list',
+        407 => '30s offline verification is too many times, please re open the offline verification page',
+        500 => 'Secken service error',
+        501 => 'Create qrcode error',
+        600 => 'Dynamic verification code error',
+        601 => 'User denied authorization',
+        602 => 'Waiting for the user to respond to a timeout, and try again',
+        603 => 'Waiting for the user to respond to a timeout, not to try again',
+        604 => 'Users or event_id does not exist',
+        605 => 'Users do not open the validation type'
     );
 
     /**

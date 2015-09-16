@@ -2,8 +2,8 @@
 {eval $authCode = $yangcong->realtimeAuth($_G['yangcong']['yangcong']);}
 <div id="layer_lostpw_$authhash" style="margin:5px;text-align: center;">
     <h3 class="flb">
-        <em >取消绑定</em>
-        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongcancel')" title="关闭">关闭</a></span>
+        <em ><!--{eval echo $lang['template']['cancel_bind'];}--></em>
+        <span><a href="javascript:;" class="flbc" onclick="hideWindow('yangcongcancel')" title="$lang['template']['close']"><!--{eval echo $lang['template']['close'];}--></a></span>
     </h3>
     <form method="post" autocomplete="off" class="cl" id="yangcongform_$authhash" action="plugin.php?id=yangcong:cancel&infloat=yes&confirmsubmit=yes" fwin="yangcongcancel">
         <div class="c cl">
@@ -11,7 +11,7 @@
             <input type='hidden' name='handlekey' value="yangcong_message$authhash" />
             <input type="hidden" name="formhash" value="{FORMHASH}">
             <div id="return_yangcong_message$authhash" class="yangcong-message-box" style="margin-top:5px;">
-                正在进行一键授权验证...
+                <!--{eval echo $lang['template']['certification'];}-->
             </div>
             <input type="submit" name="confirmsubmit" value="true" style="display:none;"/>
         </div>

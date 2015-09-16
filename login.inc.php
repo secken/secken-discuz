@@ -3,6 +3,8 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
+require_once 'lang.'.currentlang().'.php';
+
 require_once DISCUZ_ROOT . './source/plugin/yangcong/secken.class.php';
 
 $app_id  = $_G['cache']['plugin']['yangcong']['appid'];
@@ -30,17 +32,19 @@ if (submitcheck('confirmsubmit')) {
             if ($uid) {
                 $member = getuserbyuid($uid, 1);
                 dsetcookie('auth', authcode("{$member['password']}\t{$member['uid']}", 'ENCODE'), 31536000);
-                showmessage('登录成功', null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+                showmessage($lang['login_success'], null, null, array('alert' => 'info', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 			} else {
-                showmessage('登录失败', null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+                showmessage($lang['login_failed'], null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 			}
 		} else {
 			// $auth = authcode($info['uid'], 'ENCODE', $_G['config']['security']['authkey']);
 			// dsetcookie('yangconguid', $auth);
-			showmessage('您还未绑定洋葱', 'member.php?mod=register', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
+			showmessage($lang['unbind'], 'member.php?mod=register', null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0, 'showdialog' => 1, 'locationtime' => 1));
 		}
 	} else {
-			showmessage($yangcong->getMessage(), null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
+			$code = $yangcong->getCode();
+			$error_message = !isset($lang['error_code'][$code]) ? $lang['error_code']['unknow_error'] : $lang['error_code'][$code];
+			showmessage($error_message, null, null, array('alert' => 'error', 'msgtype' => 3, 'showmsg' => 1, 'handle' => 0));
 	}
 }
 

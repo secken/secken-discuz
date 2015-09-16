@@ -4,13 +4,13 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-
 class plugin_yangcong_base {
 
 	function init() {
 		global $_G;
 
-		include_once template('yangcong:module');
+		require_once template('yangcong:module');
+
 		$_G['yangcong']['referer'] = !$_G['inajax'] && CURSCRIPT != 'plugin' ? $_G['basefilename'] . ($_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '') : dreferer();
 	}
 }
@@ -22,6 +22,9 @@ class plugin_yangcong extends plugin_yangcong_base {
 	}
 
 	function global_login_extra() {
+		global $lang;
+		require_once 'lang.'.currentlang().'.php';
+
 		return tpl_global_login_extra();
 	}
 
