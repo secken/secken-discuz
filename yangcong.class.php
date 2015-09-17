@@ -23,7 +23,7 @@ class plugin_yangcong extends plugin_yangcong_base {
 
 	function global_login_extra() {
 		global $lang;
-		require_once 'lang.'.currentlang().'.php';
+		require_once 'language.'.currentlang().'.php';
 
 		return tpl_global_login_extra();
 	}

@@ -7,7 +7,7 @@ if (!$_G['uid']) {
 	showmessage('not_loggedin', NULL, array(), array('login' => 1));
 }
 
-require_once 'lang.'.currentlang().'.php';
+require_once 'language.'.currentlang().'.php';
 
 require_once DISCUZ_ROOT . './source/plugin/yangcong/secken.class.php';
 

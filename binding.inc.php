@@ -2,7 +2,7 @@
 if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
-require_once 'lang.'.currentlang().'.php';
+require_once 'language.'.currentlang().'.php';
 
 if (!$_G['uid']) {
 	showmessage('not_loggedin', NULL, array(), array('login' => 1));

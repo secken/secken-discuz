@@ -3,7 +3,7 @@ if (!defined('IN_DISCUZ')) {
 	exit('Access Denied');
 }
 
-require_once 'lang.'.currentlang().'.php';
+require_once 'language.'.currentlang().'.php';
 
 require_once DISCUZ_ROOT . './source/plugin/yangcong/secken.class.php';
 
