@@ -76,6 +76,6 @@
 		</item>
 		<item id="installfile"><![CDATA[install.php]]></item>
 		<item id="uninstallfile"><![CDATA[uninstall.php]]></item>
-		<item id="language"><![CDATA[lang.php]]></item>
+		<item id="language"><![CDATA[language.php]]></item>
 	</item>
 </root>

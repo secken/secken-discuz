@@ -25,7 +25,7 @@ class plugin_yangcong extends plugin_yangcong_base {
 		global $lang;
 		require_once 'language.'.currentlang().'.php';
 
-		return tpl_global_login_extra();
+		return yangcong_tpl_login_extra();
 	}
 
 	function global_usernav_extra1() {
@@ -40,7 +40,7 @@ class plugin_yangcong extends plugin_yangcong_base {
 			return;
 		}
 
-		return tpl_global_usernav_extra1();
+		return yangcong_tpl_usernav_extra();
 	}
 
 }
